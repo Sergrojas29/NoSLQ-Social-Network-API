@@ -1,0 +1,24 @@
+{
+  "name": "noslq-social-network-api",
+  "version": "1.0.0",
+  "description": "API for social network web app",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sergrojas29/NoSLQ-Social-Network-API.git"
+  },
+  "author": "Sergio Rojas-Aguilar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^7.0.2",
+    "validator": "^13.11.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Sergrojas29/NoSLQ-Social-Network-API/issues"
+  },
+  "homepage": "https://github.com/Sergrojas29/NoSLQ-Social-Network-API#readme"
+}
