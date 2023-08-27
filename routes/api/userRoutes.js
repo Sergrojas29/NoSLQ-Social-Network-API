@@ -5,8 +5,8 @@ const router = require('express').Router();
 
 router.get( '/', async (req, res) => {
   try {
-    const allThoughts = await Thought.find({})
-    res.status(200).json(allThoughts)
+    const allUser = await User.find({}).populate('friends').populate('thoughts')
+    res.status(200).json(allUser)
   } catch (error) {
     res.status(404).json(error)
   }
