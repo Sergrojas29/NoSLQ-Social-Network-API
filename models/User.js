@@ -16,28 +16,14 @@ const userSchema = new mongoose.Schema({
         required: 'Email address is required',
         validate: [validator.isEmail, 'Invalid email address'],
     },
-    thoughts: { type: mongoose.Schema.Types.ObjectId, ref: 'thought' },
-    friends: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    thoughts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'thought' }],
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
 
 })
 
 
 const User = mongoose.model('user', userSchema);
 
-userdata = [{ username: 'someGuy29 ', email: 'someGuy29@gmail.com' },
-{ username: 'Anotherguy9 ', email: 'Anotherguy9@gmail.com' },
-{ username: 'Newguy88 ', email: 'Newguy88@gmail.com' }]
-
-const seedUser = async () => {
-    try {
-        const data = await User.create(userdata)
-        console.log(data)
-    } catch (error) {
-        console.log(data)
-    }
-}
-
-seedUser()
 
 module.exports = User;
 

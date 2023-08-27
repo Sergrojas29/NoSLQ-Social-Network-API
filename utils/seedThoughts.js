@@ -1,3 +1,7 @@
+const connection = require('../config/connection');
+const { Thought, User } = require('../models');
+
+
 const comments = [
   'Decision Trackers are awesome',
   'Find My Phone is a useful app',
@@ -14,3 +18,16 @@ const comments = [
   'Compass is never opened',
   'Firefox is great for privacy',
 ];
+
+
+connection.on('error', (err) => err);
+
+connection.once('open', async () => {
+  let userCheck = await connection.db.listCollections({ name: 'users' }).toArray();
+  if (userCheck.length) {
+    await connection.dropCollection('users');
+  }
+  const result = await Thought.collection.insertMany(comments);
+  console.log(result);
+  process.exit(0);
+});

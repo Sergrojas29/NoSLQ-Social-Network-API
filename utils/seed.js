@@ -1,53 +1,23 @@
 const connection = require('../config/connection');
-const { Post, Comment } = require('../models');
-const {
-  getRandomName,
-  getRandomComments,
-  getRandomPost,
-  genRandomIndex,
-} = require('./data');
+const { User } = require('../models');
 
-// Start the seeding runtime timer
-console.time('seeding');
 
-// Creates a connection to mongodb
+const userdata = [
+  { username: 'SomeGuy29', email: 'someGuy29@gmail.com' },
+  { username: 'Anotherguy9', email: 'Anotherguy9@gmail.com' },
+  { username: 'Newguy88', email: 'Newguy88@gmail.com' },
+  { username: 'TheMan56', email: 'TheMan56@gmail.com' },
+]
+
+
+connection.on('error', (err) => err);
+
 connection.once('open', async () => {
-  // Delete the collections if they exist
-  let postCheck = await connection.db.listCollections({ name: 'posts' }).toArray();
-  if (postCheck.length) {
-    await connection.dropCollection('posts');
+  let userCheck = await connection.db.listCollections({ name: 'users' }).toArray();
+  if (userCheck.length) {
+    await connection.dropCollection('users');
   }
-
-  let commentCheck = await connection.db.listCollections({ name: 'comments' }).toArray();
-  if (commentCheck.length) {
-    await connection.dropCollection('comments');
-  }
-
-  // Empty arrays for randomly generated posts and comments
-  const comments = [...getRandomComments(10)];
-  const posts = [];
-
-  // Makes comments array
-  const makePost = (text) => {
-    posts.push({
-      text,
-      username: getRandomName().split(' ')[0],
-      comments: [comments[genRandomIndex(comments)]._id],
-    });
-  };
-
-  // Wait for the comments to be inserted into the database
-  await Comment.collection.insertMany(comments);
-
-  // For each of the comments that exist, make a random post of 10 words
-  comments.forEach(() => makePost(getRandomPost(10)));
-
-  // Wait for the posts array to be inserted into the database
-  await Post.collection.insertMany(posts);
-
-  // Log out a pretty table for comments and posts
-  console.table(comments);
-  console.table(posts);
-  console.timeEnd('seeding complete 🌱');
+  const result = await User.collection.insertMany(userdata);
+  console.log(result);
   process.exit(0);
 });
