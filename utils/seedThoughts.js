@@ -20,6 +20,15 @@ const comments = [
 ];
 
 
+const userdata = [
+  'SomeGuy29',
+  'Anotherguy9',
+  'Newguy88',
+  'TheMan56', 
+  'SoothPersonMan',
+  'Elparton8' ,
+]
+
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
@@ -31,3 +40,5 @@ connection.once('open', async () => {
   console.log(result);
   process.exit(0);
 });
+
+

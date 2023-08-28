@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 //* Get all thoughts
 router.get('/', async (req, res) => {
   try {
-    const allThoughts = await Thought.find({})
+    const allThoughts = await Thought.find({}).populate('reactions')
     res.status(200).json(allThoughts)
   } catch (error) {
     res.status(404).json(error)
